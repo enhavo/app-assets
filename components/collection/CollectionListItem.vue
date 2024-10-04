@@ -6,13 +6,13 @@
                 <i v-if="!data.expand" class="icon icon-unfold_less"></i>
             </div>
             <div class="view-table-row-columns">
-                <template v-for="column in columnManager.columns">
+                <template v-for="column in collection.columns">
                     <component
                         class="view-table-col"
-                        v-bind:is="column.component"
-                        v-bind:column="column"
-                        v-bind:style="getColumnStyle(column)"
-                        v-bind:data="getColumnData(column.key)"></component>
+                        :is="column.component"
+                        :column="column"
+                        :style="getColumnStyle(column)"
+                        :data="getColumnData(column.key)"></component>
                 </template>
             </div>
         </div>
@@ -27,7 +27,7 @@
                 :class="{'dragging':data.dragging == true}"
             >
                 <template #item="{ element }">
-                    <list-item v-bind:data="element"></list-item>
+                    <collection-list-item :data="element" :collection="collection"></collection-list-item>
                 </template>
             </draggable>
         </div>
@@ -35,24 +35,22 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
-import Item from "@enhavo/app/list/Item";
-import List from "@enhavo/app/list/List";
-import {ColumnManager} from "@enhavo/app/column/ColumnManager";
-
-const columnManager = inject<ColumnManager>('columnManager')
-const list = inject<List>('list')
+import {CollectionResourceItem} from "@enhavo/app/collection/CollectionResourceItem";
+import {TableCollection} from "@enhavo/app/collection/model/TableCollection";
+import draggable from 'vuedraggable'
 
 const props = defineProps<{
-    data: Item
+    data: CollectionResourceItem,
+    collection: TableCollection,
 }>()
 
 const data = props.data;
+const collection = props.collection;
 
 
 function open() 
 {
-    list.open(data);
+    collection.open(data);
 }
 
 function calcColumnWidth(parts: number): string 
@@ -65,19 +63,21 @@ function toggleExpand()
     data.expand = !data.expand;
 }
 
-function getColumnStyle(column: any): object {
-    let styles: object = Object.assign(
+function getColumnStyle(column: any): object
+{
+    return Object.assign(
         {},
         column.style,
-        {width: calcColumnWidth(column.width)} );
-
-    return styles;
+        {width: calcColumnWidth(column.width)}
+    );
 }
 
 function getColumnData(column: string): object
 {
-    if (data.data.hasOwnProperty(column) ) {
-        return data.data[column];
+    for (let field of data.data) {
+        if (field.key === column) {
+            return field.value;
+        }
     }
     return null;
 }
@@ -85,9 +85,9 @@ function getColumnData(column: string): object
 function save(event, parent)
 {
     if (event.added) {
-        list.save(parent);
+        collection.save(parent);
     } else if(event.moved) {
-        list.save(parent);
+        collection.save(parent);
     }
 }
 </script>
