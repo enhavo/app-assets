@@ -14,9 +14,9 @@ services:
         import: UrlBatch
         chunk: 'batch'
         arguments:
-            - '@enhavo/core/Translator'
-            - '@enhavo/app/frame/FrameManager'
+            - '@enhavo/app/translation/Translator'
             - '@enhavo/app/flash-message/FlashMessenger'
+            - '@enhavo/app/ui/UiManager'
         tags:
             - { name: enhavo_app.batch }
 
@@ -32,7 +32,7 @@ services:
         import: FormBatch
         chunk: 'batch'
         arguments:
-            - '@enhavo/core/Translator'
+            - '@enhavo/app/translation/Translator'
             - '@enhavo/app/frame/FrameManager'
             - '@enhavo/app/flash-message/FlashMessenger'
             - '@enhavo/core/Router'

@@ -6,7 +6,7 @@ services:
             - '@enhavo/app/frame/FrameEventDispatcher'
             - '@enhavo/app/frame/FrameManager'
             - '@enhavo/app/action/ActionManager'
-            - '@enhavo/core/Translator'
+            - '@enhavo/app/translation/Translator'
             - '@enhavo/app/modal/ModalManager'
             - '@enhavo/app/form/Form'
 

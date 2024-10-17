@@ -25,7 +25,7 @@ services:
         arguments:
             - '@enhavo/app/frame/FrameManager'
             - '@enhavo/app/frame/FrameEventDispatcher'
-            - '@enhavo/core/Translator'
+            - '@enhavo/app/translation/Translator'
         tags:
             - { name: 'enhavo_app.action', class: 'DeleteAction' }
 
@@ -62,8 +62,7 @@ services:
         import: FilterAction
         chunk: 'action'
         arguments:
-            - '@enhavo/app/filter/FilterManager'
-            - '@enhavo/app/action/model/SingleFilterAction'
+            - '@enhavo/app/manager/ResourceIndexManager'
         tags:
             - { name: 'enhavo_app.action', class: 'FilterAction' }
 
@@ -82,7 +81,7 @@ services:
             - '@enhavo/app/frame/FrameManager'
             - '@enhavo/core/Router'
             - '@enhavo/app/modal/ModalManager'
-            - '@enhavo/core/Translator'
+            - '@enhavo/app/translation/Translator'
         tags:
             - { name: 'enhavo_app.action', class: 'FormAction' }
 
@@ -129,14 +128,6 @@ services:
             - '@enhavo/vue-form/form/FormEventDispatcher'
         tags:
             - { name: 'enhavo_app.action', class: 'AutoSaveAction' }
-
-    '@enhavo/app/action/model/SingleFilterAction':
-        import: SingleFilterAction
-        chunk: 'action'
-        arguments:
-            - '@enhavo/app/filter/FilterManager'
-        tags:
-            - { name: 'enhavo_app.action', class: 'SingleFilterAction' }
 
     '@enhavo/app/action/model/PreviewModeAction':
         import: PreviewModeAction

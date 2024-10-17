@@ -33,7 +33,6 @@ services:
         import: QuickMenuToolbarWidget
         chunk: 'main'
         arguments:
-            - '@enhavo/app/frame/FrameEventDispatcher'
-            - '@enhavo/app/menu/MenuManager'
+            - '@enhavo/app/frame/FrameManager'
         tags:
             - { name: 'enhavo_app.toolbar_widget' }

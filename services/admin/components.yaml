@@ -29,6 +29,12 @@ services:
         tags:
             - { name: vue.component, component: 'action-dropdown' }
 
+    '@enhavo/app/components/action/ActionFilter.vue':
+        chunk: 'action'
+        static: true
+        tags:
+            - { name: vue.component, component: 'action-filter' }
+
     '@enhavo/app/components/flash-message/FlashMessages.vue':
         chunk: 'vue'
         static: true
