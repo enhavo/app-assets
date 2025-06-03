@@ -1,0 +1,14 @@
+@use "@ibm/plex/css/ibm-plex.css";
+@use "import/variables";
+@use "import/mixins";
+@use "core/_index";
+@use 'vue-select/dist/vue-select.css';
+
+*:focus {outline:none;}
+
+html {font-size: variables.$fontSize;line-height: variables.$lineHeight;}
+body {font-family: variables.$fontFamily;font-weight: variables.$fontRegular;margin:0;padding:0;line-height: variables.$lineHeight;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing: grayscale;}
+
+.icon { line-height: 1;display: inline-block;font-size:1rem; }
+
+@include mixins.grid(12,5px,"-form");

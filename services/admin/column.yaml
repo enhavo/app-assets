@@ -1,0 +1,48 @@
+services:
+    '@enhavo/app/column/ColumnFactory':
+        import: ColumnFactory
+        chunk: factory
+
+    '@enhavo/app/column/ColumnManager':
+        import: ColumnManager
+        chunk: index
+        arguments:
+            - '@enhavo/app/column/ColumnFactory'
+
+    '@enhavo/app/column/model/BooleanColumn':
+        import: BooleanColumn
+        chunk: index
+        tags:
+            - { name: enhavo_app.column }
+
+    '@enhavo/app/column/model/TextColumn':
+        import: TextColumn
+        chunk: index
+        tags:
+            - { name: enhavo_app.column }
+
+    '@enhavo/app/column/model/ActionColumn':
+        import: ActionColumn
+        chunk: index
+        arguments:
+            - '@enhavo/app/action/ActionManager'
+        tags:
+            - { name: enhavo_app.column }
+
+    '@enhavo/app/column/model/SubColumn':
+        import: SubColumn
+        chunk: index
+        tags:
+            - { name: enhavo_app.column }
+
+    '@enhavo/app/column/model/MediaColumn':
+        import: MediaColumn
+        chunk: index
+        tags:
+            - { name: enhavo_app.column }
+
+    '@enhavo/app/column/model/StateColumn':
+        import: StateColumn
+        chunk: index
+        tags:
+            - { name: enhavo_app.column }

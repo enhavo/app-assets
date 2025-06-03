@@ -1,0 +1,18 @@
+import Argument from "@enhavo/dependency-injection/container/Argument.js"
+import Call from "@enhavo/dependency-injection/container/Call.js"
+
+/**
+ * @param {ContainerBuilder} builder
+ * @param {object} options
+ */
+export default function(builder)
+{
+    let registry = builder.getDefinition('@hotwired/stimulus/Application');
+    let definitions = builder.getDefinitionsByTagName('stimulus.controller');
+    for (let definition of definitions) {
+        registry.addCall(new Call('register', [
+            new Argument(definition.getTag('stimulus.controller').getParameter('key'), 'string'),
+            new Argument(definition.getName())
+        ]));
+    }
+};

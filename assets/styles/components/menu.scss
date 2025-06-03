@@ -1,0 +1,158 @@
+@use "../import/variables";
+@use "../import/mixins";
+
+.menu {height:calc(100vh - #{variables.$toolbarHeight});overflow-y:auto;
+  &.style-compact {
+    &.menu-collapsed {
+      > .menu-child {min-height:0;}
+      .menu-list {
+        .menu-list-items {
+          .label-container {padding-left:5px;}
+        }
+      }
+    }
+    .menu-child-title {min-height:0;padding-bottom:6px;padding-top:6px;}
+    .menu-list {
+      .menu-list-title {min-height:0;padding-bottom:6px;padding-top:6px;}
+      .menu-list-items {
+        .label-container {padding-left:26px;}
+        .symbol-container {display:none;}
+      }
+    }
+    .menu-item {text-decoration: none; color: variables.$grey4;
+      &:visited {color: variables.$grey4}
+      &a{color: variables.$grey4}
+    }
+  }
+  &.menu-collapsed {flex-wrap:wrap;display:inline-flex;writing-mode: vertical-lr;height:calc(100vh - #{variables.$toolbarHeight + 13px});overflow-y:visible;
+    > .menu-child, > .menu-child > .menu-child-title {text-align:center;
+      > .label-container {display:none;text-align:left;}
+      > .open-indicator {display:none;}
+    }
+    > .menu-child {writing-mode: horizontal-tb;width: variables.$collapsedMenuWidth;min-height:46px;
+      &:hover {position:relative;
+        > .menu-child-title,&.menu-child-title {
+          > .label-container {display:block;position:absolute;top:50%;left:calc(100% + 7px);transform:translateY(-50%);padding:8px 10px;z-index:1;white-space:nowrap;background: variables.$color2b;border-radius:2px;box-shadow:1px 1px 4px rgba(#000,0.3);
+            &:before {content:"";position:absolute;left:-5px;top:calc(50% - 5px);border-right:6px solid;border-top:5px solid transparent;border-bottom:5px solid transparent;border-right-color: variables.$color2b;}
+          }
+        }
+      }
+      &.menu-list {position:relative;
+        .menu-list-items {position:absolute;top:0;left:100%;width:auto;padding:0;z-index:1;
+          .menu-item {padding-right:15px;}
+        }
+      }
+    }
+
+    .menu-child-title {
+      .symbol-container {flex-shrink:1;}
+    }
+
+    .menu-dropdown {min-height:46px;display:flex;align-items:center;
+      .menu-dropdown-child {margin:0 3px;flex:1 0 auto;
+        .v-select {border-radius:8px;
+          .vs__actions {padding:3px 0;}
+          .vs__dropdown-toggle {border:0;border-radius:0;padding:5px 0;justify-content:center;}
+          .vs__search {opacity:0;}
+          .vs__selected-options {overflow:hidden;width:100%;height:100%;text-indent:-9999px;position:absolute;top:0;left:0;}
+        }
+      }
+    }
+
+    .menu-item {
+      &.selected {border-left:0;background: variables.$color1b;}
+    }
+    .menu-list {
+      &.selected {
+        .menu-list-title {background: variables.$color1b;}
+      }
+    }
+  }
+  .menu-child {color: variables.$grey4;}
+
+  .menu-item {
+    &.selected, &.selected:visited {color:#fff;box-shadow: inset 4px 0 0 variables.$color1b;}
+  }
+
+  .menu-child-title {padding:0 17px;display: flex; align-items: flex-start; justify-content: flex-start;cursor:pointer;min-height:46px;position:relative;
+    &:hover, &:hover:visited {color:#fff;}
+    i {
+      &.open-indicator {position:absolute;right:18px;}
+    }
+    .symbol-container {width:26px;flex:0 0 auto;}
+  }
+
+  .menu-dropdown {
+    .menu-dropdown-child {margin:0 6px;
+      .v-select {background: variables.$color2b;color: variables.$grey5;border-radius:10px;
+        &.vs--open {border-bottom-left-radius:0;border-bottom-right-radius:0;}
+        .vs__actions {padding:0 6px 0 3px;}
+        .vs__dropdown-toggle {border:0;border-radius:0;padding:5px 10px;}
+        .vs__search {@include mixins.placeholder{color: variables.$grey4;};margin:0;border:0;padding:0;}
+        .vs__selected {color:#fff;padding:0;margin:0;border:0;}
+        .vs__selected-options {padding:0;}
+        .vs__open-indicator {fill: variables.$grey4;}
+        .vs__dropdown-menu {border:0;background: variables.$color2b;color: variables.$grey4;border-bottom-right-radius:10px;border-bottom-left-radius:10px;box-shadow:none;
+          .vs__dropdown-option {color: variables.$grey4;padding:4px 10px;margin:0 1px;
+            &:hover,&.vs__dropdown-option--highlight {background: variables.$color2;color: variables.$grey5;}
+          }
+        }
+      }
+    }
+  }
+
+  .menu-list {flex-wrap: wrap;
+    &.selected {
+      .menu-list-title {color:#fff;}
+    }
+    .menu-list-child {flex-basis: 100%;}
+    .menu-list-title {width: 100%;min-height:46px; cursor: pointer; display: flex; align-items: flex-start; flex-wrap: nowrap;
+      .label-container {padding-right:20px;}
+    }
+    .menu-list-items {background: variables.$color2b;}
+  }
+}
+
+@media screen and (max-width:767px) {
+  .menu {height:auto;
+    &.menu-collapsed {flex-wrap:nowrap;display:block;writing-mode:inherit;height:calc(100vh - #{variables.$toolbarHeight});overflow-y:hidden;
+      > .menu-child, > .menu-child > .menu-child-title {text-align:left;
+        > .label-container {display:block;}
+        > .open-indicator {display:inline-block;}
+      }
+      > .menu-child {writing-mode:inherit;width:auto;min-height:46px;
+        &:hover {position:static;
+          > .menu-child-title,&.menu-child-title {
+            > .label-container {display:block;position:static;top:auto;left:auto;transform:none;padding:0;z-index:auto;white-space:normal;background:none;border-radius:0;box-shadow:none;
+              &:before {content:none;}
+            }
+          }
+        }
+        &.menu-list {position:static;
+          .menu-list-items {position:static;top:auto;left:auto;z-index:auto;
+            .menu-item {padding-right:15px;}
+          }
+        }
+      }
+
+      .menu-dropdown {min-height:0;display:block;align-items:normal;
+        .menu-dropdown-child {margin:0 6px;flex:auto;
+          .v-select {border-radius:10px;
+            .vs__actions {padding:0 6px 0 3px;}
+            .vs__dropdown-toggle {border:0;padding:5px 10px;justify-content:normal;}
+            .vs__search {opacity:1;}
+          }
+        }
+      }
+
+      .menu-item {
+        &.selected {color:#fff;border-left:4px solid variables.$color1b;background:none;}
+      }
+      .menu-list {
+        &.selected {
+          .menu-list-title {background:none;}
+        }
+      }
+    }
+  }
+}

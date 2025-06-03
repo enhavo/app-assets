@@ -1,0 +1,32 @@
+@use "../import/variables";
+@use "../import/blueprints";
+
+.form-row {
+    + .form-row {margin-top:15px;}
+
+    .form-errors {font-size:0.75rem;line-height:1.3em;color: variables.$color4;padding:3px;}
+
+    .formwidget-container {
+        input[type="file"] {border:0;background:transparent;}
+        input:not([type]), input[type="text"],input[type="password"],input[type="number"] {@extend %textfield;}
+        textarea {@extend %textarea;}
+
+        .related-buttons-row {display:flex;gap:10px;
+          &:not(:first-child) {margin-top:5px;}
+          &:not(:last-child) {margin-bottom:5px;}
+          .action {
+            @extend %btn-primary;
+            display: flex; gap: 10px;
+            .label {
+              order: -1;
+            }
+          }
+        }
+    }
+}
+
+.choice-list {
+    .choice-input-container {
+        .choice-input-with-label {display: block; margin-bottom: 3px;}
+    }
+}

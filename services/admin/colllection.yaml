@@ -1,0 +1,32 @@
+services:
+    '@enhavo/app/collection/CollectionFactory':
+        import: CollectionFactory
+        chunk: factory
+
+    '@enhavo/app/collection/model/TableCollection':
+        import: TableCollection
+        chunk: index
+        arguments:
+            - '@enhavo/app/routing/Router'
+            - '@enhavo/app/filter/FilterManager'
+            - '@enhavo/app/column/ColumnManager'
+            - '@enhavo/app/frame/FrameManager'
+            - '@enhavo/app/flash-message/FlashMessenger'
+            - '@enhavo/app/translation/Translator'
+            - '@enhavo/app/client/Client'
+        tags:
+            - { name: enhavo_app.collection }
+
+    '@enhavo/app/collection/model/ListCollection':
+        import: ListCollection
+        chunk: index
+        arguments:
+            - '@enhavo/app/routing/Router'
+            - '@enhavo/app/filter/FilterManager'
+            - '@enhavo/app/column/ColumnManager'
+            - '@enhavo/app/frame/FrameManager'
+            - '@enhavo/app/flash-message/FlashMessenger'
+            - '@enhavo/app/translation/Translator'
+            - '@enhavo/app/client/Client'
+        tags:
+            - { name: enhavo_app.collection }

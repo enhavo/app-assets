@@ -1,0 +1,36 @@
+services:
+    '@enhavo/app/tab/TabFactory':
+        import: TabFactory
+        chunk: factory
+
+    '@enhavo/app/tab/TabManager':
+        import: TabManager
+        chunk: input
+        arguments:
+            - '@enhavo/app/tab/TabFactory'
+        tags:
+            - { name: vue.service, service: 'tabManager' }
+
+    '@enhavo/app/tab/model/BaseTab':
+        import: BaseTab
+        chunk: input
+        tags:
+            - { name: 'enhavo_app.tab' }
+
+    '@enhavo/app/tab/model/FormTab':
+        import: FormTab
+        chunk: input
+        tags:
+            - { name: 'enhavo_app.tab' }
+
+    '@enhavo/app/tab/model/RevisionTab':
+        import: RevisionTab
+        chunk: input
+        arguments:
+            - '@enhavo/app/ui/UiManager'
+            - '@enhavo/app/flash-message/FlashMessenger'
+            - '@enhavo/app/frame/FrameManager'
+            - '@enhavo/app/translation/Translator'
+            - '@enhavo/app/manager/ResourceInputManager'
+        tags:
+            - { name: 'enhavo_app.tab' }
